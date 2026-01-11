@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$XWheel - The X Flywheel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #1a8cff 0%, #4da6ff 30%, #80c1ff 60%, #b3d9ff 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Clouds */
+        .clouds-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.9;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .cloud-1 {
+            width: 120px;
+            height: 50px;
+            top: 10%;
+            animation: float-cloud 25s linear infinite;
+        }
+        .cloud-1::before { width: 60px; height: 60px; top: -30px; left: 20px; }
+        .cloud-1::after { width: 80px; height: 80px; top: -40px; left: 50px; }
+
+        .cloud-2 {
+            width: 150px;
+            height: 60px;
+            top: 25%;
+            animation: float-cloud 30s linear infinite;
+            animation-delay: -10s;
+        }
+        .cloud-2::before { width: 70px; height: 70px; top: -35px; left: 25px; }
+        .cloud-2::after { width: 90px; height: 90px; top: -45px; left: 60px; }
+
+        .cloud-3 {
+            width: 100px;
+            height: 40px;
+            top: 50%;
+            animation: float-cloud 20s linear infinite;
+            animation-delay: -5s;
+        }
+        .cloud-3::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud-3::after { width: 65px; height: 65px; top: -30px; left: 40px; }
+
+        .cloud-4 {
+            width: 180px;
+            height: 70px;
+            top: 70%;
+            animation: float-cloud 35s linear infinite;
+            animation-delay: -15s;
+        }
+        .cloud-4::before { width: 80px; height: 80px; top: -40px; left: 30px; }
+        .cloud-4::after { width: 100px; height: 100px; top: -50px; left: 70px; }
+
+        .cloud-5 {
+            width: 130px;
+            height: 55px;
+            top: 85%;
+            animation: float-cloud 28s linear infinite;
+            animation-delay: -20s;
+        }
+        .cloud-5::before { width: 65px; height: 65px; top: -32px; left: 22px; }
+        .cloud-5::after { width: 85px; height: 85px; top: -42px; left: 55px; }
+
+        @keyframes float-cloud {
+            from { left: -250px; }
+            to { left: 100vw; }
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-title {
+            font-family: 'Bangers', cursive;
+            font-size: 5rem;
+            color: #000;
+            text-shadow: 
+                4px 4px 0 #fff,
+                -2px -2px 0 #fff,
+                2px -2px 0 #fff,
+                -2px 2px 0 #fff,
+                0 5px 15px rgba(0,0,0,0.3);
+            letter-spacing: 5px;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 4px 4px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 0 5px 15px rgba(0,0,0,0.3); }
+            50% { text-shadow: 4px 4px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 0 5px 30px rgba(0,0,0,0.5), 0 0 60px rgba(255,255,255,0.5); }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #000;
+            font-weight: 700;
+            margin-top: 10px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+        }
+
+        /* X Logo with Wings */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .x-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .x-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 180px;
+            font-weight: 900;
+            color: #000;
+            text-shadow: 
+                5px 5px 0 #fff,
+                -3px -3px 0 #fff,
+                3px -3px 0 #fff,
+                -3px 3px 0 #fff;
+            z-index: 2;
+        }
+
+        .wing {
+            position: absolute;
+            width: 140px;
+            height: auto;
+            z-index: 1;
+        }
+
+        .wing-left {
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%) scaleX(-1) rotate(-15deg);
+            animation: flap-left 0.5s ease-in-out infinite;
+        }
+
+        .wing-right {
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(15deg);
+            animation: flap-right 0.5s ease-in-out infinite;
+        }
+
+        @keyframes flap-left {
+            0%, 100% { transform: translateY(-50%) scaleX(-1) rotate(-15deg); }
+            50% { transform: translateY(-50%) scaleX(-1) rotate(-25deg); }
+        }
+
+        @keyframes flap-right {
+            0%, 100% { transform: translateY(-50%) rotate(15deg); }
+            50% { transform: translateY(-50%) rotate(25deg); }
+        }
+
+        /* Wing SVG */
+        .wing-svg {
+            filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+        }
+
+        /* Info Cards */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 
+                0 10px 40px rgba(0,0,0,0.2),
+                0 0 0 4px #000,
+                inset 0 0 0 2px #fff;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(0,0,0,0.3),
+                0 0 0 4px #000,
+                inset 0 0 0 2px #fff;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: #000;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: #333;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+        }
+
+        /* Flywheel Animation */
+        .flywheel-graphic {
+            width: 100%;
+            max-width: 500px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .flywheel-circle {
+            width: 300px;
+            height: 300px;
+            border: 8px dashed #000;
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            animation: spin 10s linear infinite;
+            background: rgba(255,255,255,0.3);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .flywheel-item {
+            position: absolute;
+            background: #000;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .flywheel-item:nth-child(1) { top: -20px; left: 50%; transform: translateX(-50%); }
+        .flywheel-item:nth-child(2) { top: 50%; right: -60px; transform: translateY(-50%); }
+        .flywheel-item:nth-child(3) { bottom: -20px; left: 50%; transform: translateX(-50%); }
+        .flywheel-item:nth-child(4) { top: 50%; left: -60px; transform: translateY(-50%); }
+
+        .flywheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bangers', cursive;
+            font-size: 3rem;
+            color: #000;
+        }
+
+        /* Contract Address */
+        .ca-section {
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.8s;
+            animation-fill-mode: both;
+        }
+
+        .ca-section h2 {
+            font-family: 'Bangers', cursive;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .ca-box {
+            background: rgba(255,255,255,0.1);
+            border: 3px solid #fff;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .ca-address {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #4da6ff;
+            word-break: break-all;
+            animation: blink 1s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .copy-btn {
+            background: #4da6ff;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .copy-btn:hover {
+            background: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Social Links */
+        .social-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #000;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 1s;
+            animation-fill-mode: both;
+        }
+
+        .social-btn:hover {
+            background: #333;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .social-btn svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            animation: sparkle-fade 1s ease-out forwards;
+        }
+
+        @keyframes sparkle-fade {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a8cff 0%, #4da6ff 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-out 2.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; pointer-events: none; }
+        }
+
+        .loading-x {
+            font-size: 150px;
+            font-weight: 900;
+            color: #000;
+            text-shadow: 5px 5px 0 #fff, -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff;
+            animation: loading-bounce 0.6s ease-in-out infinite;
+        }
+
+        @keyframes loading-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .loading-text {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            color: #fff;
+            margin-top: 20px;
+            animation: loading-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes loading-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-title { font-size: 3rem; }
+            .x-container { width: 250px; height: 250px; }
+            .x-logo { font-size: 120px; }
+            .wing { width: 100px; }
+            .flywheel-circle { width: 220px; height: 220px; }
+            .flywheel-item { font-size: 0.7rem; padding: 8px 12px; }
+            .flywheel-center { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-x">X</div>
+        <div class="loading-text">Initiating Flywheel...</div>
+    </div>
+
+    <!-- Animated Clouds -->
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="logo-title">$XWHEEL</h1>
+            <p class="tagline">🚀 THE X FLYWHEEL 🚀</p>
+        </header>
+
+        <!-- Hero Section with X Logo and Wings -->
+        <section class="hero">
+            <div class="x-container">
+                <!-- Left Wing -->
+                <svg class="wing wing-left wing-svg" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M180 75C180 75 150 30 100 25C50 20 20 50 10 75C20 100 50 130 100 125C150 120 180 75 180 75Z" fill="white" stroke="black" stroke-width="4"/>
+                    <path d="M160 75C160 75 140 45 100 42C60 39 35 60 28 75" stroke="black" stroke-width="3" fill="none"/>
+                    <path d="M140 75C140 75 125 55 100 53C75 51 55 65 48 75" stroke="black" stroke-width="3" fill="none"/>
+                    <path d="M120 75C120 75 110 62 100 61C90 60 78 68 72 75" stroke="black" stroke-width="2" fill="none"/>
+                </svg>
+                
+                <!-- X Logo -->
+                <div class="x-logo">𝕏</div>
+                
+                <!-- Right Wing -->
+                <svg class="wing wing-right wing-svg" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M180 75C180 75 150 30 100 25C50 20 20 50 10 75C20 100 50 130 100 125C150 120 180 75 180 75Z" fill="white" stroke="black" stroke-width="4"/>
+                    <path d="M160 75C160 75 140 45 100 42C60 39 35 60 28 75" stroke="black" stroke-width="3" fill="none"/>
+                    <path d="M140 75C140 75 125 55 100 53C75 51 55 65 48 75" stroke="black" stroke-width="3" fill="none"/>
+                    <path d="M120 75C120 75 110 62 100 61C90 60 78 68 72 75" stroke="black" stroke-width="2" fill="none"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Info Cards -->
+        <section class="cards-container">
+            <div class="card">
+                <h2><span class="card-icon">🔄</span> THE FLYWHEEL</h2>
+                <p>Every transaction feeds the flywheel. <strong>100% of marketing funds</strong> are reinvested into X promotion, creating an unstoppable cycle of growth. Buy → Promote → Grow → Repeat. The wheel never stops spinning!</p>
+            </div>
+            
+            <div class="card">
+                <h2><span class="card-icon">💰</span> SMART CASHTAGS</h2>
+                <p>X just dropped the <strong>BIGGEST update</strong> for crypto! Smart Cashtags now let you view ANY token's price directly on X. Type $XWHEEL and see the magic. We're positioned to be the <strong>#1 cashtag</strong> on the platform!</p>
+            </div>
+            
+            <div class="card">
+                <h2><span class="card-icon">🚀</span> WHY $XWHEEL?</h2>
+                <p>First mover advantage on Smart Cashtags. Aggressive X marketing strategy. Community-driven flywheel mechanics. <strong>The more we grow, the more we promote. The more we promote, the more we grow.</strong> Simple as that! 🔥</p>
+            </div>
+        </section>
+
+        <!-- Flywheel Graphic -->
+        <section class="flywheel-graphic">
+            <div class="flywheel-circle">
+                <span class="flywheel-item">📈 BUY $XWHEEL</span>
+                <span class="flywheel-item">📣 X PROMOTION</span>
+                <span class="flywheel-item">👥 NEW HOLDERS</span>
+                <span class="flywheel-item">💎 PRICE PUMPS</span>
+                <span class="flywheel-center">♻️</span>
+            </div>
+        </section>
+
+        <!-- Contract Address -->
+        <section class="ca-section">
+            <h2>📋 CONTRACT ADDRESS</h2>
+            <div class="ca-box">
+                <span class="ca-address" id="ca">⏳ ADDING IN UNDER 5 MINS...</span>
+                <button class="copy-btn" onclick="copyCA()">📋 COPY</button>
+            </div>
+        </section>
+
+        <!-- Social Links -->
+        <section class="social-section">
+            <a href="https://x.com/XWheelfun" target="_blank" class="social-btn" id="twitter-link">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                FOLLOW @XWheelfun
+            </a>
+        </section>
+    </div>
+
+    <script>
+        // Copy CA function
+        function copyCA() {
+            const ca = document.getElementById('ca').textContent;
+            if (ca.includes('ADDING')) {
+                alert('CA not available yet! Check back in a few minutes 🚀');
+                return;
+            }
+            navigator.clipboard.writeText(ca);
+            alert('Copied to clipboard! 📋');
+        }
+
+        // Sparkle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.95) {
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        // Add some random sparkles on load
+        setTimeout(() => {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, i * 200);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
